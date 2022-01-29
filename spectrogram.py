@@ -63,6 +63,7 @@ class Spectrogram:
     def plot_fft(self):
         plt.figure(figsize=(7,5))
         plt.plot(self._freq, self._fft_spectrum_abs)
+        plt.xlim(0,12000)
         plt.xlabel("Frecuencia, Hz")
         plt.ylabel("Amplitud, units")
         plt.show()

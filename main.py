@@ -1,8 +1,7 @@
-from random import sample
 from spectrogram import Spectrogram
 
 def main()-> None:
-    sample_1 = Spectrogram('1kHz.wav')
+    sample_1 = Spectrogram('100Hz.wav')
     sample_1.play_sound()
     sample_1.plot_input_wave()
     sample_1.plot_fft()
