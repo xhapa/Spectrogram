@@ -10,7 +10,7 @@ class Spectrogram:
     def __init__(self, filename) -> None:
         self.__fs, self.__data = wavfile.read(filename)
         self.__data = self.__data / 2.0**15
-        self.__N = self.__datos.shape[0]
+        self.__N = self.__data.shape[0]
         self.__total_time = self.__N/self.__fs 
         self.time = np.arange(0,self.__total_time,self.__total_time/self.__N)
         self.FFT()
@@ -38,11 +38,11 @@ class Spectrogram:
     
     @property
     def get_FFT(self) -> tuple:
-        return (self._fft_spectrum, self._freq,self._fft_spectrum_abs)
+        return (self._fft_spectrum, self._freq, self._fft_spectrum_abs)
     
     def max_value(self):
-        print(type(np.argmax(self.fft_spectrum)*self.__fs/self.__N))
-        return np.argmax(self.fft_spectrum)*self.__fs/self.__N
+        print(type(np.argmax(self._fft_spectrum)*self.__fs/self.__N))
+        return np.argmax(self._fft_spectrum)*self.__fs/self.__N
     
     def play_sound(self):
         sd.play(self.__data)
