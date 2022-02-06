@@ -55,10 +55,12 @@ class Spectrogram:
         plt.figure(figsize=(15,5))
         plt.subplot(121)
         plt.plot(self.time, self.__data[:], 'r')
+        plt.grid(linestyle = '--', linewidth = 0.5)
         plt.xlabel("Tiempo, s")
 
         plt.subplot(122)
         plt.plot(self.time[1000:3000], self.__data[1000:3000])
+        plt.grid(linestyle = '--', linewidth = 0.5)
         plt.xlabel("Tiempo, s")
 
         plt.tight_layout()
@@ -68,6 +70,7 @@ class Spectrogram:
         plt.figure(figsize=(7,5))
         plt.plot(self._freq, self._fft_spectrum_abs)
         plt.semilogx()
+        plt.grid(True, which="both", ls="-", linewidth = 0.5)
         plt.xlim(1,)
         plt.xlabel("Frecuencia, Hz")
         plt.ylabel("Amplitud, units")
