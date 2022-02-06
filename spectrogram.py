@@ -20,6 +20,10 @@ class Spectrogram:
         return self.__data
 
     @property
+    def get_time(self):
+        return self.time
+
+    @property
     def get_total_time(self):
         return self.__total_time
 
@@ -54,7 +58,7 @@ class Spectrogram:
         plt.xlabel("Tiempo, s")
 
         plt.subplot(122)
-        plt.plot(self.time[0:1000], self.__data[0:1000])
+        plt.plot(self.time[1000:3000], self.__data[1000:3000])
         plt.xlabel("Tiempo, s")
 
         plt.tight_layout()
@@ -63,7 +67,8 @@ class Spectrogram:
     def plot_fft(self):
         plt.figure(figsize=(7,5))
         plt.plot(self._freq, self._fft_spectrum_abs)
-        plt.xlim(0,12000)
+        plt.semilogx()
+        plt.xlim(1,)
         plt.xlabel("Frecuencia, Hz")
         plt.ylabel("Amplitud, units")
         plt.show()

@@ -1,19 +1,47 @@
 from spectrogram import Spectrogram
 
+import sounddevice as sd
+import numpy as np
+from matplotlib import pyplot as plt 
+
 def main()-> None:
-    sample_1 = Spectrogram('100Hz.wav')
-    sample_1.play_sound()
-    sample_1.plot_input_wave()
-    sample_1.plot_fft()
-    sample_1.max_value()
+    samples = []
+    colors = ['#335EFF', '#3396FF', '#5EFF33', '#33FF3C', '#FF3633','#FF4C33', '#6133FF', '#9333FF']
+    samples.append(Spectrogram('SeñalPura.wav'))
+    samples.append(Spectrogram('Espectro_Pasa_Altos.wav'))
+    samples.append(Spectrogram('Espectro_Pasa_Bajos.wav'))
+    samples.append(Spectrogram('Espectro_Pasa_Banda.wav'))
+    plot_input_data(len(samples), samples, colors)
+    plot_output_data(len(samples), samples, colors)
 
-    print(sample_1.get_data, type(sample_1.get_data))
-    print(sample_1.get_total_time, type(sample_1.get_total_time))
-    print(sample_1.get_number_of_samples, type(sample_1.get_number_of_samples))
-    print(sample_1.get_frecuency_sample, type(sample_1.get_frecuency_sample))
-    print(sample_1.get_data, type(sample_1.get_data))
+def plot_input_data(n_samples, samples, colors):
+    plt.figure(figsize=(15,15))
+    plt.tight_layout()
+    for i in range(n_samples):
+        plt.subplot(2, 4, (2*i)+1) 
+        plt.plot(samples[i-1].get_time, samples[i-1].get_data[:], color=colors[(2*i)])
+        plt.title(f'Filtro')
+        plt.xlabel("Tiempo, s")
+        plt.grid(linestyle = '--', linewidth = 0.5)
+        plt.subplot(2, 4, (2*i)+2) 
+        plt.plot(samples[i-1].get_time[1000:3000], samples[i-1].get_data[1000:3000], color=colors[(2*i)+1])
+        plt.title(f'Filtro')
+        plt.xlabel("Tiempo, s")
+        plt.grid(linestyle = '--', linewidth = 0.5)
+    plt.show()
 
-    print(sample_1.get_FFT, type(sample_1.get_FFT[0]), type(sample_1.get_FFT[1]), type(sample_1.get_FFT[2]))
+def plot_output_data(n_samples, samples, colors):
+    plt.figure(figsize=(15,15))
+    plt.tight_layout()
+    for i in range(n_samples):
+        plt.subplot(2, 2, (i+1)) 
+        plt.plot(samples[i-1].get_FFT[1], samples[i-1].get_FFT[2], color=colors[i*2])
+        plt.semilogx()
+        plt.xlim(1,)
+        plt.xlabel("Frecuencia, Hz")
+        plt.ylabel("Amplitud, units")
+        plt.grid(linestyle = '--', linewidth = 0.5)
+    plt.show()
 
 if __name__=='__main__':
     main()
